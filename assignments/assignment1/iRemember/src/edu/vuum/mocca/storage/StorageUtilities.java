@@ -11,6 +11,9 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import edu.vuum.mocca.ui.MediaType;
+import edu.vuum.mocca.ui.SecurityLevel;
+
 /**
  * This utility class provides several options for storing temporary and permanent files on
  * the file system with varying degrees of security.
@@ -19,15 +22,21 @@ public class StorageUtilities {
 
 	// Log tag used for debugging with Logcat
 	public static final String LOG_TAG = StorageUtilities.class.getCanonicalName();
-	
+
+	// Removed security levels based on integer values.
+	// Instead of we have enum SecurityLevel
+	//
 	// Constant that denote whether a file should be stored publicly or privately
-	public static final int SECURITY_PUBLIC = 0; // Line 24
-	public static final int SECURITY_PRIVATE = 1;
-	
+	//	public static final int SECURITY_PUBLIC = 0; // Line 24
+	//	public static final int SECURITY_PRIVATE = 1;
+
+	// Removed media types based on integer values
+	// Instead of we have enum MediaType
+	//
 	// Constant that denotes what media type a file should be stored as.
-	public static final int MEDIA_TYPE_IMAGE = 1;
-	public static final int MEDIA_TYPE_AUDIO = 2;
-	public static final int MEDIA_TYPE_TEXT = 3;
+	//	public static final int MEDIA_TYPE_IMAGE = 1;
+	//	public static final int MEDIA_TYPE_AUDIO = 2;
+	//	public static final int MEDIA_TYPE_TEXT = 3;
 
 
 	/**
@@ -49,7 +58,7 @@ public class StorageUtilities {
 	 * 						the current time and media type.
 	 * @return			A File reference to a newly created temporary file
 	 */
-	public static File getOutputMediaFile(Context context, int type, int security, String name) {
+	public static File getOutputMediaFile(Context context, MediaType type, SecurityLevel security, String name) {
 		Log.d(LOG_TAG, "getOutputMediaFile() type:" + type);
 		
 		// Get the current time stamp
@@ -67,24 +76,21 @@ public class StorageUtilities {
 			Toast.makeText(context, "External storage not mounted. Can't write/read file.", Toast.LENGTH_LONG).show();
 			return null;
 		}
-		
-		// If security is private, store it in the app's private directory.
-		if (security == SECURITY_PRIVATE) {
-			storageDir = context.getFilesDir();
-		}
-		// Otherwise, store the file in a public directory depending on its media type.
-		else {	// Line 76
-			switch (type) {
-				case MEDIA_TYPE_IMAGE:
-					storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-					break;
-				case MEDIA_TYPE_AUDIO:
-					storageDir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
-					break;
-				case MEDIA_TYPE_TEXT:
-					storageDir = context.getExternalFilesDir(null);
-					break;
-			}
+
+		// We are iterating through possible SecurityLevel values.
+		// We are introducing default value for storage directory which is SecurityLevel.MAX
+		switch (security) {
+			case MAX:
+				// If security is private, store it in the app's private directory.
+				storageDir = storeInPrivateSpace(context);
+				break;
+			case MIN:
+				// Otherwise, store the file in a public directory depending on its media type.
+				storageDir = storeInPublicSpace(context, type);
+				break;
+			default:
+				storageDir = storeInPublicSpace(context, type);
+				break;
 		}
 		
 		// If a name was specified, use that filename.
@@ -92,24 +98,56 @@ public class StorageUtilities {
 			outputFile = new File(storageDir.getPath() + File.separator + name);	// Line 92
 		}
 		// Otherwise, determine filename based on media type.
-		else if (storageDir != null){
+		else if (storageDir != null) {
 			switch (type) {
-			case MEDIA_TYPE_IMAGE:
-				outputFile = new File(storageDir.getPath() + File.separator
+				case IMAGE:
+					outputFile = new File(storageDir.getPath() + File.separator
 							+ "IMG_" + timeStamp);
-				break;
-			case MEDIA_TYPE_AUDIO:
-				outputFile = new File(storageDir.getPath() + File.separator +
-						"SND_" + timeStamp);
-				break;
-			case MEDIA_TYPE_TEXT:
-				outputFile = new File(storageDir.getPath() + File.separator
-						+ "TXT_" + timeStamp);
-				break;
+					break;
+				case AUDIO:
+					outputFile = new File(storageDir.getPath() + File.separator
+							+ "SND_" + timeStamp);
+					break;
+				case TEXT:
+					outputFile = new File(storageDir.getPath() + File.separator
+							+ "TXT_" + timeStamp);
+					break;
 			}
 		}
 		
 		return outputFile;
+	}
+
+	/**
+	 * Function returns
+	 *
+	 * @param context
+	 * @return
+	 */
+	private static File storeInPrivateSpace(Context context) {
+		Log.d(LOG_TAG, "Returning private storage directory: " + context.getFilesDir().getAbsolutePath());
+		return context.getFilesDir();
+	}
+
+	/**
+	 * Function to determine directory to store file based on file content type
+	 * in public space
+	 *
+	 * @param context
+	 * @param type
+	 * @return
+	 */
+	private static File storeInPublicSpace(Context context, MediaType type) {
+		switch (type) {
+			case IMAGE:
+				return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+			case AUDIO:
+				return context.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+			case TEXT:
+				return context.getExternalFilesDir(null);
+			default:
+				return context.getExternalFilesDir(null);
+        }
 	}
 
 	/**
@@ -122,13 +160,11 @@ public class StorageUtilities {
 	 * @param name		The name of the file to be created (optional)
 	 * @return			A Uri to a newly created temporary file
 	 */
-	public static Uri getOutputMediaFileUri(Context context, int type, int security, String name){
+	public static Uri getOutputMediaFileUri(Context context, MediaType type, SecurityLevel security, String name){
 		File outFile = getOutputMediaFile(context, type, security, name);
 		if (outFile != null)
 			return Uri.fromFile(outFile);	// Line 128
 		
 		return null;
 	}
-
-	
 }

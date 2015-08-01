@@ -24,10 +24,13 @@ public class LoginActivity extends StoryActivityBase{
 	// The edit texts used
 	EditText mLoginId;
 	EditText mPassword;
-	
+
+	// Removed security level based on integer values.
+	// Instead of we have enum SecurityLevel
+	//
 	// Make sure we use maximum security to store login credentials
-	static final int MAX_SECURITY = Integer.MAX_VALUE;
-	
+	//	static final int MAX_SECURITY = Integer.MAX_VALUE;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,10 +48,10 @@ public class LoginActivity extends StoryActivityBase{
 	 * Get the file used for storing login credentials
 	 */
 	public static File getLoginFile (Context context) {
-		return StorageUtilities.getOutputMediaFile(context, 	// Line 48
-				StorageUtilities.MEDIA_TYPE_TEXT, 
-				MAX_SECURITY, 
-				"login.txt");
+		return StorageUtilities.getOutputMediaFile(context, 			// Line 48
+													MediaType.TEXT, 	// Using enum value instead of integer constants
+													SecurityLevel.MAX, 	// Using enum value instead of integer constants
+													"login.txt");
 	}
 	
 	/**
@@ -57,11 +60,13 @@ public class LoginActivity extends StoryActivityBase{
 	public static long getLoginId(Context context) {
 		// Get the output file for the login information
 		File loginFile = getLoginFile(context);		// Line 59
-		
+
 		String out = null;
-		
+
 		// If it already exists, read the login ID and return it
 		if (loginFile != null && loginFile.exists()) {
+			// TODO: REMOVE
+			Log.d(LOG_TAG, "Login file path: " + loginFile.getAbsolutePath());
 			try {
 				Scanner sc = new Scanner(loginFile);
 				out = sc.nextLine();

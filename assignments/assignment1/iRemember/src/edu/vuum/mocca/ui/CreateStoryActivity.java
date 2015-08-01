@@ -48,6 +48,7 @@ University of Maryland to appear in their names.
 
 package edu.vuum.mocca.ui;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -275,13 +276,21 @@ public class CreateStoryActivity extends StoryActivityBase {
 		Intent soundIntent = new Intent(this, SoundRecordActivity.class);	// Line 275
 		
 		// Tell the sound activity where to store the recorded audio.
-		String fileName = StorageUtilities.getOutputMediaFile(this, // Line 278
-				StorageUtilities.MEDIA_TYPE_AUDIO, 
-				StorageUtilities.SECURITY_PUBLIC,
-				null).getAbsolutePath();
-        
-		if (fileName == null)
+		File file = StorageUtilities.getOutputMediaFile(this, 				// Line 278
+														MediaType.AUDIO, 	// Using enum value instead of integer constants
+														SecurityLevel.MIN, 	// Using enum value instead of integer constants
+														null);
+
+		// Handled possible NPE on StorageUtilities.getOutputMediaFile(..).getAbsolutePath()
+		if (file == null) {
 			return;
+		}
+
+		String fileName = file.getAbsolutePath();
+        
+		if (fileName == null) {
+			return;
+		}
 		
         soundIntent.putExtra("FILENAME", fileName);	
         
@@ -301,10 +310,10 @@ public class CreateStoryActivity extends StoryActivityBase {
 				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 		
 		// Tell the capturing activity where to store the image
-		Uri uriPath = StorageUtilities.getOutputMediaFileUri(this, // Line 304
-				StorageUtilities.MEDIA_TYPE_IMAGE, 
-				StorageUtilities.SECURITY_PUBLIC,
-				null);
+		Uri uriPath = StorageUtilities.getOutputMediaFileUri(this, 				// Line 304
+															MediaType.IMAGE, 	// Using enum value instead of integer constants
+															SecurityLevel.MIN, 	// Using enum value instead of integer constants
+															null);
 		
 		if (uriPath == null)
 			return;
