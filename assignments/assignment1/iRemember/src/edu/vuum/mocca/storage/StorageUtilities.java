@@ -41,18 +41,18 @@ public class StorageUtilities {
 
 	/**
 	 * Creates an output file to store some kind of media (images, audio, text).
-	 * 
+	 *
 	 * The directory the file is created in depends both on the media type and the security level.
 	 * If the security is private, we store it in app-specific private memory. If it is public, we
 	 * store the file on external storage. Android has different directories in external storage for
 	 * each media type, so we choose the directory depending on the media type parameter.
-	 * 
+	 *
 	 * If the provided filename is null, we generate a filename based on the current time and media type.
-	 * 
+	 *
 	 * @param context	The context of the calling component
 	 * @param type		The media type that's being stored (determines file location and name
 	 * 						if not specified)
-	 * @param security	How securely we should store the temporary files. 
+	 * @param security	How securely we should store the temporary files.
 	 * 						We can store it on the SD card or in private app memory.
 	 * @param name		The name of the file to be created. If null, we generate a name based on
 	 * 						the current time and media type.
@@ -60,17 +60,17 @@ public class StorageUtilities {
 	 */
 	public static File getOutputMediaFile(Context context, MediaType type, SecurityLevel security, String name) {
 		Log.d(LOG_TAG, "getOutputMediaFile() type:" + type);
-		
+
 		// Get the current time stamp
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US) // Line 56
 		.format(new Date());
 
 		// The directory where we'll store the file
 		File storageDir = null;		// Line 59
-		
+
 		// The name of the file we'll return
 		File outputFile = null;
-		
+
 		// Make sure external storage is mounted.
 		if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 			Toast.makeText(context, "External storage not mounted. Can't write/read file.", Toast.LENGTH_LONG).show();
@@ -92,7 +92,7 @@ public class StorageUtilities {
 				storageDir = storeInPublicSpace(context, type);
 				break;
 		}
-		
+
 		// If a name was specified, use that filename.
 		if (name != null && storageDir != null) {
 			outputFile = new File(storageDir.getPath() + File.separator + name);	// Line 92
@@ -114,18 +114,17 @@ public class StorageUtilities {
 					break;
 			}
 		}
-		
+
 		return outputFile;
 	}
 
 	/**
-	 * Function returns
+	 * Function returns private storage directory /data/data/<app package>/files/
 	 *
 	 * @param context
 	 * @return
 	 */
 	private static File storeInPrivateSpace(Context context) {
-		Log.d(LOG_TAG, "Returning private storage directory: " + context.getFilesDir().getAbsolutePath());
 		return context.getFilesDir();
 	}
 
@@ -152,10 +151,10 @@ public class StorageUtilities {
 
 	/**
 	 * A convenience function for getting a URI to an output file instead of a File reference.
-	 * 
+	 *
 	 * @param context	The context of the calling component
 	 * @param type		The media type that's being stored (determines file name and location)
-	 * @param security	How securely we should store the temporary files. 
+	 * @param security	How securely we should store the temporary files.
 	 * 						We can store it on the SD card or in private app memory.
 	 * @param name		The name of the file to be created (optional)
 	 * @return			A Uri to a newly created temporary file
@@ -164,7 +163,7 @@ public class StorageUtilities {
 		File outFile = getOutputMediaFile(context, type, security, name);
 		if (outFile != null)
 			return Uri.fromFile(outFile);	// Line 128
-		
+
 		return null;
 	}
 }

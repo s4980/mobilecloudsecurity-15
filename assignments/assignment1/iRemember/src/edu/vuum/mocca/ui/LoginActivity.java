@@ -65,8 +65,6 @@ public class LoginActivity extends StoryActivityBase{
 
 		// If it already exists, read the login ID and return it
 		if (loginFile != null && loginFile.exists()) {
-			// TODO: REMOVE
-			Log.d(LOG_TAG, "Login file path: " + loginFile.getAbsolutePath());
 			try {
 				Scanner sc = new Scanner(loginFile);
 				out = sc.nextLine();
