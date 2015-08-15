@@ -17,43 +17,42 @@ import org.springframework.security.oauth2.provider.client.ClientDetailsUserDeta
 /**
  * A class that combines a UserDetailsService and ClientDetailsService
  * into a single object.
- * 
- * @author jules
  *
+ * @author jules
  */
 public class ClientAndUserDetailsService implements UserDetailsService,
-		ClientDetailsService {
+        ClientDetailsService {
 
-	private final ClientDetailsService clients_;
+    private final ClientDetailsService clients_;
 
-	private final UserDetailsService users_;
-	
-	private final ClientDetailsUserDetailsService clientDetailsWrapper_;
+    private final UserDetailsService users_;
 
-	public ClientAndUserDetailsService(ClientDetailsService clients,
-			UserDetailsService users) {
-		super();
-		clients_ = clients;
-		users_ = users;
-		clientDetailsWrapper_ = new ClientDetailsUserDetailsService(clients_);
-	}
+    private final ClientDetailsUserDetailsService clientDetailsWrapper_;
 
-	@Override
-	public ClientDetails loadClientByClientId(String clientId)
-			throws ClientRegistrationException {
-		return clients_.loadClientByClientId(clientId);
-	}
-	
-	@Override
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
-		UserDetails user = null;
-		try{
-			user = users_.loadUserByUsername(username);
-		}catch(UsernameNotFoundException e){
-			user = clientDetailsWrapper_.loadUserByUsername(username);
-		}
-		return user;
-	}
+    public ClientAndUserDetailsService(ClientDetailsService clients,
+                                       UserDetailsService users) {
+        super();
+        clients_ = clients;
+        users_ = users;
+        clientDetailsWrapper_ = new ClientDetailsUserDetailsService(clients_);
+    }
+
+    @Override
+    public ClientDetails loadClientByClientId(String clientId)
+            throws ClientRegistrationException {
+        return clients_.loadClientByClientId(clientId);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+        UserDetails user = null;
+        try {
+            user = users_.loadUserByUsername(username);
+        } catch (UsernameNotFoundException e) {
+            user = clientDetailsWrapper_.loadUserByUsername(username);
+        }
+        return user;
+    }
 
 }

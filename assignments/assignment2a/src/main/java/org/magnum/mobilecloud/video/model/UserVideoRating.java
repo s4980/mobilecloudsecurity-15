@@ -5,46 +5,90 @@ package org.magnum.mobilecloud.video.model;
 //
 // There are also plenty of other solutions that do not require
 // persisting instances of this...
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "VIDEO_RATING")
+@SequenceGenerator(name = "VIDEO_RATING_SEQUENCE",
+        sequenceName = "VIDEO_RATING_SEQUENCE",
+        allocationSize = 1,
+        initialValue = 0)
 public class UserVideoRating {
-	
-	private long videoId;
 
-	private double rating;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "VIDEO_RATING_SEQUENCE")
+    @Column(name = "VIDEO_RATING_ID")
+    private long id;
 
-	private String user;
+    @ManyToOne(optional = false,
+            targetEntity = Video.class)
+    @JoinColumn(name = "video",
+            referencedColumnName = "VIDEO_METADATA_ID")
+    private Video video;
+    @Column
+    private long videoIndex;
+    @Column
+    private double rating;
+    @Column
+    private String user;
 
-	public UserVideoRating() {
-	}
+    public UserVideoRating() {
+    }
 
-	public UserVideoRating(long videoId, double rating, String user) {
-		super();
-		this.videoId = videoId;
-		this.rating = rating;
-		this.user = user;
-	}
+    public UserVideoRating(long videoIndex, double rating, String user) {
+        super();
+        this.videoIndex = videoIndex;
+        this.rating = rating;
+        this.user = user;
+    }
 
-	public long getVideoId() {
-		return videoId;
-	}
+    public Video getVideo() {
+        return video;
+    }
 
-	public void setVideoId(long videoId) {
-		this.videoId = videoId;
-	}
+    public void setVideo(Video video) {
+        this.video = video;
+    }
 
-	public double getRating() {
-		return rating;
-	}
+    public long getVideoIndex() {
+        return videoIndex;
+    }
 
-	public void setRating(double rating) {
-		this.rating = rating;
-	}
+    public void setVideoIndex(long videoIndex) {
+        this.videoIndex = videoIndex;
+    }
 
-	public String getUser() {
-		return user;
-	}
+    public double getRating() {
+        return rating;
+    }
 
-	public void setUser(String user) {
-		this.user = user;
-	}
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public long getDbId() {
+        return id;
+    }
+
+    public void setDbId(long id) {
+        this.id = id;
+    }
 }

@@ -2,29 +2,27 @@ package org.magnum.mobilecloud.video.model;
 
 public class AverageVideoRating {
 
-	private final double rating;
+    private final double rating;
+    private final long videoId;
+    private final int totalRatings;
 
-	private final long videoId;
+    public AverageVideoRating(double rating, long videoId, int totalRatings) {
+        super();
+        this.rating = rating;
+        this.videoId = videoId;
+        this.totalRatings = totalRatings;
+    }
 
-	private final int totalRatings;
+    public double getRating() {
+        return rating;
+    }
 
-	public AverageVideoRating(double rating, long videoId, int totalRatings) {
-		super();
-		this.rating = rating;
-		this.videoId = videoId;
-		this.totalRatings = totalRatings;
-	}
+    public long getVideoId() {
+        return videoId;
+    }
 
-	public double getRating() {
-		return rating;
-	}
-
-	public long getVideoId() {
-		return videoId;
-	}
-
-	public int getTotalRatings() {
-		return totalRatings;
-	}
+    public int getTotalRatings() {
+        return totalRatings;
+    }
 
 }
