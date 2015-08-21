@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\MZ\.gradle\caches\modules-2\files-2.1\commons-collections\commons-collections\3.2.1\761ea405b9b37ced573d2df0d1e3a4e0f9edc668\commons-collections-3.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="761ea405b9b37ced573d2df0d1e3a4e0f9edc668">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\commons-collections-3.2.1-35d914e4db2a3c700d8a0e2078ccd398b0b6067e.jar" />
+    </item>
+    <item
+        jar="C:\Users\MZ\.gradle\caches\modules-2\files-2.1\com.github.davidmarquis\fluent-interface-proxy\1.3.0\519c459c771e2554437649a32b56e27a83ba66dc\fluent-interface-proxy-1.3.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="519c459c771e2554437649a32b56e27a83ba66dc">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\fluent-interface-proxy-1.3.0-9c6212dc91d1a7aeceb9d76237d4412728163d91.jar" />
+    </item>
+    <item
+        jar="C:\Users\MZ\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.4\b1b6ea3b7e4aa4f492509a4952029cd8e48019ad\commons-io-2.4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\commons-io-2.4-03fb5721f0fe465319999392f7688f2afd738b15.jar" />
+    </item>
+    <item
+        jar="C:\Users\MZ\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit\retrofit\1.9.0\a681c044244d9fc375198588297a39ba78028423\retrofit-1.9.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a681c044244d9fc375198588297a39ba78028423">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\retrofit-1.9.0-5f6bdec1897572a06f8019c933774123b6481d8a.jar" />
+    </item>
+    <item
+        jar="C:\Users\MZ\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.9\9ce04e34240f674bc72680f8b843b1457383161a\commons-codec-1.9.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9ce04e34240f674bc72680f8b843b1457383161a">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\commons-codec-1.9-3b3164477b0122a3dd107d65f50ff909bd92e0fd.jar" />
+    </item>
+    <item
+        jar="C:\Users\MZ\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.3.2\90a3822c38ec8c996e84c16a3477ef632cbc87a3\commons-lang3-3.3.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="90a3822c38ec8c996e84c16a3477ef632cbc87a3">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\commons-lang3-3.3.2-76ab80da62dcd36957e69c8f67ebc66bd3c48725.jar" />
+    </item>
+    <item
+        jar="C:\Users\MZ\.gradle\caches\modules-2\files-2.1\commons-beanutils\commons-beanutils\1.9.2\7a87d845ad3a155297e8f67d9008f4c1e5656b71\commons-beanutils-1.9.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="7a87d845ad3a155297e8f67d9008f4c1e5656b71">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\commons-beanutils-1.9.2-517336bdbf27dc42ff205ef35270df3bee997316.jar" />
+    </item>
+    <item
+        jar="C:\Users\MZ\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\gson-2.3.1-101c7caf60b20f5c3602e92ac46ea86917dc3a66.jar" />
+    </item>
+    <item
+        jar="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\api\build\libs\api.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0b74d9eff06794c9589d7444c73f939223edfd3c">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\api-4e2aff2d1b7a4f58bfc0df58845d299c9bd3a229.jar" />
+    </item>
+    <item
+        jar="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="605c447c20ca216b5556af9f215af5d4bba1b117">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\android-support-v4-ed7628cdc206ad02071043f42d4129bb45a26f46.jar" />
+    </item>
+    <item
+        jar="C:\Users\MZ\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.6.0-rc4\2f839bd38641ed105add5de1c98bfbe834ef6415\jackson-annotations-2.6.0-rc4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2f839bd38641ed105add5de1c98bfbe834ef6415">
+        <dex dex="C:\Users\Public\Documents\GitHub\mobilecloud-15\assignments\assignment3\VideoDownloader\app\build\intermediates\pre-dexed\debug\jackson-annotations-2.6.0-rc4-56959377f44085ee792ae54fed59455efe7852e5.jar" />
+    </item>
+
+</items>
