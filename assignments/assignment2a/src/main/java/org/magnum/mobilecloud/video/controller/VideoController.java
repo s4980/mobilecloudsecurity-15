@@ -140,8 +140,6 @@ public class VideoController {
 
         if (videoRating == null) {
             response.sendError(HttpStatus.NOT_FOUND.value(), "Video not found");
-        } else {
-            response.sendError(HttpStatus.OK.value(), "Video rated");
         }
 
         return videoRating;

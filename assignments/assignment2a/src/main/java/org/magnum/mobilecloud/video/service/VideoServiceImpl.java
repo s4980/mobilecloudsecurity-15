@@ -115,7 +115,7 @@ public class VideoServiceImpl implements VideoService {
 
         Collection<UserVideoRating> userVideoRatingRepositoryByUser = userVideoRatingRepository.findByUser(principal.getName());
         // If user didn't rate the video yet we are creating new UserVideoRating object an save it to Video object
-        if (userVideoRatingRepositoryByUser.isEmpty()) {
+        if (readyToRate(userVideoRatingRepositoryByUser, id)) {
             Video video = metadataRepository.findOne(id);
             UserVideoRating userVideoRating = new UserVideoRating(id, rating, principal.getName());
             userVideoRating.setVideo(video);
@@ -132,6 +132,22 @@ public class VideoServiceImpl implements VideoService {
         }
 
         return calculateAverageVideoRating(id);
+    }
+
+    private boolean readyToRate(Collection<UserVideoRating> userVideoRatingRepositoryByUser, long videoId) {
+
+        if (userVideoRatingRepositoryByUser.isEmpty()) {
+            return true;
+        }
+
+        for (UserVideoRating videoRating : userVideoRatingRepositoryByUser) {
+            if (videoRating.getVideoIndex() == videoId)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private AverageVideoRating calculateAverageVideoRating(long id) {
