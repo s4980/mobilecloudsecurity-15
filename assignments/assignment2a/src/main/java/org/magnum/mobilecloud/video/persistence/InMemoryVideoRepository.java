@@ -19,7 +19,7 @@ import static org.magnum.mobilecloud.video.client.VideoSvcApi.VIDEO_SVC_PATH;
  */
 public class InMemoryVideoRepository implements VideoRepository {
     private AtomicLong currentId = new AtomicLong(0L);
-    private ConcurrentMap<Long, Video> videos = new ConcurrentHashMap<>();
+    private ConcurrentMap<Long, Video> videos = new ConcurrentHashMap<Long, Video>();
 
     @Override
     public Video save(Video video, Principal principal) {
