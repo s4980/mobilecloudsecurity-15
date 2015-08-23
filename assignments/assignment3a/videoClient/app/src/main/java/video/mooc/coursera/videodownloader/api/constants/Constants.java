@@ -16,8 +16,8 @@ public class Constants {
      * URL of the VideoWebService.  Please Read the Instructions in
      * README.md to set up the HTTPS_SERVER_URL.
      */
-    public static final String HTTPS_SERVER_URL = "https://10.0.2.2:8443";
-    public static final String HTTP_SERVER_URL = "http://localhost:8080";
+//    public static final String HTTPS_SERVER_URL = "https://10.0.2.2:8443";
+//    public static final String HTTP_SERVER_URL = "http://localhost:8080";
 
     public static final String EXTRA_VIDEO_ID = "Video_id";
     public static final String EXTRA_VIDEO_RATING = "Video_rating";

@@ -20,9 +20,6 @@ public class RateVideoService extends IntentService {
     public static final String ACTION_RATE_VIDEO_SERVICE_RESPONSE =
             "video.mooc.coursera.videodownloader.model.services.RateVideoService.RESPONSE";
 
-//    public static final String EXTRA_VIDEO_ID = "Video_id";
-//    public static final String EXTRA_VIDEO_RATING = "Video_rating";
-
     /**
      * VideoDataMediator mediates the communication between Video
      * Service and local storage in the Android device.

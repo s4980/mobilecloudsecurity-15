@@ -15,20 +15,20 @@ import video.mooc.coursera.videodownloader.view.LoginScreenActivity;
  */
 public class RestAdapterFactory {
 
-    private static final String CLIENT_ID = "mobile";
-    private static String USERNAME;
-    private static String PASSWORD;
-    private static String SERVER;
+    private final String clientId = "mobile";
+    private String username;
+    private String password;
+    private String server;
 
     private static RestAdapterFactory INSTANCE;
 
     private RestAdapterFactory() {
     }
 
-    public RestAdapterFactory(String server, String userName, String password) {
-        this.SERVER = server;
-        this.USERNAME = userName;
-        this.PASSWORD = password;
+    public RestAdapterFactory(String server, String username, String password) {
+        this.server = server;
+        this.username = username;
+        this.password = password;
     }
 
     /**
@@ -66,35 +66,35 @@ public class RestAdapterFactory {
         }
     }
 
-    public synchronized VideoServiceProxy construct(SecurityLevel securityLevel) {
+    public synchronized <T> T construct(SecurityLevel securityLevel, Class<T> tClass) {
         switch (securityLevel) {
             case HTTP:
-                return unsecuredAdapter();
+                return unsecuredAdapter(tClass);
             case HTTPS:
-                return securedAdapter();
+                return securedAdapter(tClass);
             default:
-                return unsecuredAdapter();
+                return unsecuredAdapter(tClass);
         }
     }
 
-    private VideoServiceProxy securedAdapter() {
+    private <T> T securedAdapter(Class<T> tClass) {
         return new SecuredRestBuilder()
-                .setLoginEndpoint(SERVER + VideoServiceProxy.TOKEN_PATH)
-                .setEndpoint(SERVER)
-                .setUsername(USERNAME)
-                .setPassword(PASSWORD)
-                .setClientId(CLIENT_ID)
+                .setLoginEndpoint(server + VideoServiceProxy.TOKEN_PATH)
+                .setEndpoint(server)
+                .setUsername(username)
+                .setPassword(password)
+                .setClientId(clientId)
                 .setClient(new OkClient(UnsafeHttpsClient.getUnsafeOkHttpClient()))
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build()
-                .create(VideoServiceProxy.class);
+                .create(tClass);
     }
 
-    private VideoServiceProxy unsecuredAdapter() {
+    private <T> T unsecuredAdapter(Class<T> tClass) {
         return new RestAdapter
                 .Builder()
-                .setEndpoint(SERVER)
+                .setEndpoint(server)
                 .build()
-                .create(VideoServiceProxy.class);
+                .create(tClass);
     }
 }

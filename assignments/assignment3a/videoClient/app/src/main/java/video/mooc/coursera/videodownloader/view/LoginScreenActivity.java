@@ -55,7 +55,8 @@ public class LoginScreenActivity extends Activity {
         String pass = password_.getText().toString();
         String server = server_.getText().toString();
 
-        final VideoServiceProxy svc = RestAdapterFactory.getInstance(server, user, pass).construct(SecurityLevel.HTTPS);
+        final VideoServiceProxy svc = RestAdapterFactory.getInstance(server, user, pass)
+                                                        .construct(SecurityLevel.HTTPS, VideoServiceProxy.class);
 
         CallableTask.invoke(new Callable<Collection<Video>>() {
 

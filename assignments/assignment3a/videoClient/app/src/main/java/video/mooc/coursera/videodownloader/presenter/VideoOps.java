@@ -13,6 +13,7 @@ import video.mooc.coursera.videodownloader.common.GenericAsyncTask;
 import video.mooc.coursera.videodownloader.common.GenericAsyncTaskOps;
 import video.mooc.coursera.videodownloader.common.Utils;
 import video.mooc.coursera.videodownloader.model.mediator.VideoDataMediator;
+import video.mooc.coursera.videodownloader.model.mediator.VideoMetadataMediator;
 import video.mooc.coursera.videodownloader.model.services.DownloadVideoService;
 import video.mooc.coursera.videodownloader.model.services.RateVideoService;
 import video.mooc.coursera.videodownloader.model.services.UploadVideoService;
@@ -74,6 +75,12 @@ public class VideoOps
      * Service and local storage on the Android device.
      */
     VideoDataMediator mVideoMediator;
+
+    /**
+     * VideoMetadataMediator mediates the communication between Video
+     * Service and local storage on the Android device.
+     */
+    VideoMetadataMediator mVideoMetaDataMediator;
     
     /**
      * The Adapter that is needed by ListView to show the list of
@@ -114,6 +121,11 @@ public class VideoOps
             // communication between Server and Android Storage.
             mVideoMediator =
                 new VideoDataMediator();
+
+            // Create VideoDataMediator that will mediate the
+            // communication between Server and Android Storage.
+            mVideoMetaDataMediator =
+                    new VideoMetadataMediator();
             
             // Create a local instance of our custom Adapter for our
             // ListView.
@@ -165,7 +177,7 @@ public class VideoOps
      */
     @Override
     public List<Video> doInBackground(Void... params) {
-        return mVideoMediator.getVideoList();
+        return mVideoMetaDataMediator.getVideoList();
     }
 
     /**

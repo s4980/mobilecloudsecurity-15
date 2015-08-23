@@ -7,10 +7,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit.RestAdapter;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
-import video.mooc.coursera.videodownloader.api.constants.Constants;
 import video.mooc.coursera.videodownloader.api.proxy.VideoServiceProxy;
 import video.mooc.coursera.videodownloader.api.webdata.Video;
 import video.mooc.coursera.videodownloader.api.webdata.VideoStatus;
@@ -18,9 +16,7 @@ import video.mooc.coursera.videodownloader.api.webdata.VideoStatus.VideoState;
 import video.mooc.coursera.videodownloader.utils.VideoMediaStoreUtils;
 import video.mooc.coursera.videodownloader.utils.VideoStorageUtils;
 
-import static video.mooc.coursera.videodownloader.api.constants.Constants.*;
 import static video.mooc.coursera.videodownloader.api.constants.Constants.MAX_SIZE_MEGA_BYTE;
-import static video.mooc.coursera.videodownloader.api.constants.Constants.HTTPS_SERVER_URL;
 
 /**
  * Mediates communication between the Video Service and the local
@@ -74,14 +70,7 @@ public class VideoDataMediator {
     public VideoDataMediator() {
 
         // Initialize the VideoServiceProxy.
-//        mVideoServiceProxy = new RestAdapter
-//            .Builder()
-//            .setEndpoint(HTTP_SERVER_URL)
-//            .build()
-//            .create(VideoServiceProxy.class);
-//
-//        mVideoServiceProxy = (VideoServiceProxy) RestAdapterFactory.getInstance().construct(SecurityLevel.HTTP, VideoServiceProxy.class);
-        mVideoServiceProxy = RestAdapterFactory.getInstance().construct(SecurityLevel.HTTPS);
+        mVideoServiceProxy = RestAdapterFactory.getInstance().construct(SecurityLevel.HTTPS, VideoServiceProxy.class);
     }
 
     /**
@@ -167,15 +156,5 @@ public class VideoDataMediator {
         } else {
             return STATUS_DOWNLOAD_ERROR;
         }
-    }
-
-    /**
-     * Get the List of Videos from Video Service.
-     *
-     * @return the List of Videos from Server or null if there is
-     *         failure in getting the Videos.
-     */
-    public List<Video> getVideoList() {
-        return (ArrayList<Video>) mVideoServiceProxy.getVideoList();
     }
 }

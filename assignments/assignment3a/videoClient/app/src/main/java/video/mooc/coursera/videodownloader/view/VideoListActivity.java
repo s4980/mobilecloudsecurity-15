@@ -22,7 +22,6 @@ import video.mooc.coursera.videodownloader.api.webdata.Video;
 import video.mooc.coursera.videodownloader.common.GenericActivity;
 import video.mooc.coursera.videodownloader.common.Utils;
 import video.mooc.coursera.videodownloader.model.mediator.RestAdapterFactory;
-import video.mooc.coursera.videodownloader.model.services.RateVideoService;
 import video.mooc.coursera.videodownloader.presenter.VideoOps;
 import video.mooc.coursera.videodownloader.utils.VideoStorageUtils;
 import video.mooc.coursera.videodownloader.view.ui.FloatingActionButton;
@@ -140,11 +139,7 @@ public class VideoListActivity
     }
 
     private void refreshVideos() {
-        RestAdapterFactory showLogin = getOrShowLogin(this);
-
-//        if (showLogin != null) {
-//            getOps().getVideoList();
-//        }
+        getOrShowLogin(this);
     }
 
     /**
@@ -304,8 +299,6 @@ public class VideoListActivity
                 Intent intent = new Intent(getBaseContext(), VideoDetailActivity.class);
                 intent.putExtra("videoId", video.getId());
                 intent.putExtra("videoTitle", video.getTitle());
-//                intent.putExtra("videoAvgRating", video.getAverageRating());
-//                intent.putExtra("videoTotalRatings", video.getTotalRatings());
                 intent.putExtra("videoDataUrl", video.getDataUrl());
                 intent.putExtra("videoDuration", video.getDuration());
 

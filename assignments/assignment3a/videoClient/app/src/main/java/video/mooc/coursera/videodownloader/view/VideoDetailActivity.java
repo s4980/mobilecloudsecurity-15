@@ -10,8 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -24,20 +22,19 @@ import video.mooc.coursera.videodownloader.model.services.RateVideoService;
 import video.mooc.coursera.videodownloader.presenter.VideoOps;
 import video.mooc.coursera.videodownloader.utils.VideoStorageUtils;
 import video.mooc.coursera.videodownloader.view.ui.FloatingActionButton;
-import video.mooc.coursera.videodownloader.view.ui.UploadVideoDialogFragment;
 
 import static video.mooc.coursera.videodownloader.model.services.RateVideoService.ACTION_RATE_VIDEO_SERVICE_RESPONSE;
 
 public class VideoDetailActivity extends GenericActivity<VideoOps.View, VideoOps> {
 
     public static final String OVERAL_RATING_FORMAT = "avg:%.1f%ntotal:%d";
-    
+
     /**
      * The Broadcast Receiver that registers itself to receive the
      * result from UploadVideoService when a video upload completes.
      */
     private UploadResultReceiver mUploadResultReceiver;
-    
+
     /**
      * The Floating Action Button that will show a Dialog Fragment to
      * upload Video when user clicks on it.
@@ -90,7 +87,6 @@ public class VideoDetailActivity extends GenericActivity<VideoOps.View, VideoOps
 
             // Set rating bar value from Intent 
             mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
-//            mRatingBar.setRating(new Float(intent.getDoubleExtra("videoAvgRating", 0)));
             getApplicationContext().startService(RateVideoService.makeIntent(
                     getApplicationContext(),
                     intent.getLongExtra("videoId", 0)));
@@ -105,9 +101,9 @@ public class VideoDetailActivity extends GenericActivity<VideoOps.View, VideoOps
                     if (fromUser) {
                         // call rest api to add new rating for video
                         getApplicationContext().startService(RateVideoService.makeIntent(
-                                                                getApplicationContext(),
-                                                                intent.getLongExtra("videoId", 0),
-                                                                rating));
+                                getApplicationContext(),
+                                intent.getLongExtra("videoId", 0),
+                                rating));
                     } else {
                         // If rating bar was changed from inside of the code to display average ratings display Toast
                         Utils.showToast(getApplicationContext(), "Video was rated");
@@ -236,19 +232,17 @@ public class VideoDetailActivity extends GenericActivity<VideoOps.View, VideoOps
         @Override
         public void onReceive(Context context,
                               Intent intent) {
-            // RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-
             // Update ratingBar with average ratings for video
             if (mRatingBar != null) {
-                mRatingBar.setRating(new Float(intent.getDoubleExtra("videoAvgRating", 0)));
+                mRatingBar.setRating(
+                        Double.isNaN(intent.getDoubleExtra("videoAvgRating", 0)) ? Float.valueOf("0") : new Float(intent.getDoubleExtra("videoAvgRating", 0)));
             }
 
             // Update videoRatingDetails text filed with average video rating and total number of ratings
             if (mVideoRatingDetails != null) {
-                // TextView videoRatingDetails = (TextView) findViewById(R.id.ratingDetails);
                 mVideoRatingDetails.setText(String.format(
                         OVERAL_RATING_FORMAT,
-                        intent.getDoubleExtra("videoAvgRating", 0),
+                        Double.isNaN(intent.getDoubleExtra("videoAvgRating", 0)) ? 0 : intent.getDoubleExtra("videoAvgRating", 0),
                         intent.getIntExtra("videoTotalRatings", 0)));
             }
         }
